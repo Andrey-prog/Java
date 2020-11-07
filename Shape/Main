@@ -1,0 +1,88 @@
+package com.company;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.lang.String;
+import java.io.FileInputStream;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args)  {
+
+        FileInputStream fileInputStream = null;
+        MyList list = new MyList();
+
+        try {
+            fileInputStream = new FileInputStream("C:\\Users\\Administrator\\IdeaProjects\\untitled2\\vectors.txt");
+
+            Scanner scanner = new Scanner(fileInputStream);
+
+            while (scanner.hasNext()) {
+
+                String str = scanner.nextLine();
+                switch (str.toLowerCase()) {
+                    case ("triangle"):
+                        Shape shapeT = null;
+                        try {
+                            shapeT = new MyTriangle(scanner);
+                            list.add(shapeT);
+                        } catch (MyException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+                    case ("quad"):
+                        try {
+                            Shape shapeQ = new MyQuad(scanner);
+                            list.add(shapeQ);
+                        } catch (MyException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+                    case ("vector"):
+                        Shape shapeV = new MyVector(scanner);
+                        list.add(shapeV);
+                        break;
+                    case ("circle"):
+                        try {
+                            Shape shapeC = new MyCircle(scanner);
+                            list.add(shapeC);
+                        } catch (MyException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+                    case ("square"):
+                        try {
+                            Shape shapeS = new MySquare(scanner);
+                            list.add(shapeS);
+                        } catch (MyException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+                    case ("point"):
+                        Shape shapeP = new MyPoint(scanner);
+                        list.add(shapeP);
+                        break;
+                }
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            if (fileInputStream != null) {
+                try {
+                    fileInputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        System.out.println(list.getPerim());
+        System.out.println(list.getSquare());
+    }
+
+
+}
+
+
+
+
